@@ -5,6 +5,7 @@ import Login from './src/Login'
 import MainPage from './src/MainPage/index'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import Toast from 'react-native-toast-message';
 
 enableScreens();
 MaterialCommunityIcons.loadFont();
@@ -26,6 +27,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <MyStack />
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>
   );
 }

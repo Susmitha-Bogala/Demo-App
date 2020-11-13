@@ -1,7 +1,10 @@
 import React, { useState, } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
+import Toast from 'react-native-toast-message';
+
 import styles from '../../styles'
 import defaultLabels from '../../Constants/DefaultLabels'
+import colors from '../../Constants/Colors'
 
 const demoData = [
     {
@@ -158,6 +161,26 @@ function AddCartPage({ navigation }) {
         )
     }
 
+    const showToast = () => {
+        Toast.show({
+            type: 'success',
+            position: 'top',
+            text1: 'Success',
+            text2: 'Order Placed Successfully',
+            visibilityTime: 4000,
+            autoHide: true,
+            topOffset: 30,
+            bottomOffset: 40,
+            onShow: () => { },
+            onHide: () => { }
+        },() =>  setData(demoData))
+    }
+
+    const checkDisabled = (data) => {
+        let numberOfAddedItems = data.map(value => value.numberOfAddedItems);
+        return !numberOfAddedItems.some(el => el > 0)
+    }
+
 
     return (
         <View style={[styles.flex, styles.padding5]}>
@@ -168,11 +191,16 @@ function AddCartPage({ navigation }) {
                 keyExtractor={item => (item.id).toString()}
             />
             <TouchableOpacity
+                disabled={checkDisabled(data)}
+                onPress={() => showToast()}
                 style={[
                     styles.padding10,
                     styles.borderRadius20,
-                    styles.bgDarkModerateCyan,
-                    styles.alignItemsCenter
+                    // styles.bgDarkModerateCyan,
+                    styles.alignItemsCenter,
+                    {
+                        backgroundColor: checkDisabled(data) ?   colors.lightModerateCyan  : colors.darkModerateCyan
+                    }
                 ]}>
                 <Text
                     style={[

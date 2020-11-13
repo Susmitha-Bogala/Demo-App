@@ -7,7 +7,10 @@ const Stack = createNativeStackNavigator();
 
 function CartPage({ navigation }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
       <Stack.Screen name={defaultLabels.cart} component={AddCartPage} />
     </Stack.Navigator>
   );
